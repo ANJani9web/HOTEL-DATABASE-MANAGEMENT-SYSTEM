@@ -30,7 +30,9 @@ def room():
         flag=0
         cursor.execute("delete from room_book where Departure<CURDATE();")
         db.commit()
+        
         cursor.execute("select * from register where User_id=%s and Password=%s;",(str(user_id),str(password)))
+        # print(user_id,password)
         myresult = cursor.fetchall()
         if len(myresult)==1:
             flag=1
@@ -40,14 +42,14 @@ def room():
         if l>100:
          return "sorry no rooms available"
         max1=1
-        for i in range(1,len(myresult)):
+        for i in range(0,len(myresult)):
           max1=max(max1,myresult[i][0])
         c=max1+1
         if flag==1:
             cursor.execute("INSERT INTO room_book(roomid,User_Id,Room_name,Arrival,Departure,Rooms,Adults,Children) values(%s,%s,%s,%s,%s,%s,%s,%s);",(c,user_id,room_name,arrival,departure,rooms,adults,children))
             db.commit()
         # db.close()
-            return "room booked"
+            return "room booked and your room id is "+str(c)
         else:
             return render_template("a.html")
     return render_template("room.html")
