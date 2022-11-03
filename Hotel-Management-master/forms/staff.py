@@ -40,7 +40,7 @@ def room():
             return "enjoy your stay"
         else:
             return 'sorry no room booked with this id'
-    return render_template("room.html")
+    return render_template("staff.html")
  
 if __name__=='__main__':
    app.run(port=5000)
