@@ -49,7 +49,7 @@ def staff():
     return render_template("staff_service.html")
  
 if __name__=='__main__':
-   app.run(port=5000)
+   app.run(port=7307)
 
 
 # "INSERT INTO room_book(User_Id,Room_name,Arrival,Departure,Rooms,Adults,Children) VALUES(user_id,room_name,arrival,departure,rooms,adults,children)";
