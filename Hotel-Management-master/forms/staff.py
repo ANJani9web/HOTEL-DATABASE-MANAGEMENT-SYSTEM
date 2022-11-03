@@ -17,21 +17,26 @@ app = Flask(__name__)
 # A decorator used to tell the application
 # which URL is associated function
 @app.route('/', methods =["GET", "POST"])
-def room():
+def staff():
     if request.method == "POST":
         room_id=request.form.get('roomid')
         room_no=request.form.get('roomnumber')
+        x=1
 
         
+        flag=0
+
         
-        cursor.execute("select * from room_book where roomid=%s",(room_id))
+        cursor.execute("select * from room_book where roomid=%s and Rooms=%s;",(room_id,x))
+        # cursor.execute("select * from room_book where roomid=%s;",(room_id,room_no))
         # print(user_id,password)
         myresult = cursor.fetchall()
         if len(myresult)==1:
             flag=1
         
         if flag==1:
-            cursor.execute("select * from room_book where roomid=%s",(room_id))
+            # cursor.execute("select * from room_book where roomid=(%s);",(room_id))
+            cursor.execute("select * from room_book where roomid=%s and Rooms=%s;",(room_id,x))
             na=cursor.fetchall()
             c=na[0][1]
             cursor.execute("INSERT INTO rooms(roomid,roomnumber,User_Id) values(%s,%s,%s);",(room_id,room_no,c))
@@ -40,7 +45,8 @@ def room():
             return "enjoy your stay"
         else:
             return 'sorry no room booked with this id'
-    return render_template("room.html")
+        # return f'{room_id}'
+    return render_template("staff_service.html")
  
 if __name__=='__main__':
    app.run(port=5000)
