@@ -1,85 +1,36 @@
--- phpMyAdmin SQL Dump
--- version 4.8.3
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: Jun 06, 2019 at 09:28 AM
--- Server version: 10.1.35-MariaDB
--- PHP Version: 7.2.9
+create database dine;
+use dine;
+CREATE TABLE dine_book(
+  dineid int primary key,
+  User_Id int(11) NOT NULL,
+  Table_name varchar(20) NOT NULL,
+  Guest tinyint(4) NOT NULL,
+  Event_date date NOT NULL,
+  Event_time time NOT NULL,
+  Request varchar(30) NOT NULL,foreign key(User_Id) references register(User_Id)
+);
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
-SET time_zone = "+00:00";
-
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
---
--- Database: `hotel`
---
-
--- --------------------------------------------------------
-
---
--- Table structure for table `dine_book`
---
-
-CREATE TABLE `dine_book` (
-  `User_Id` int(11) NOT NULL,
-  `Table_name` varchar(20) NOT NULL,
-  `Guest` tinyint(4) NOT NULL,
-  `Event_date` date NOT NULL,
-  `Event_time` time NOT NULL,
-  `Request` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `dine_book`
---
-
-INSERT INTO `dine_book` (`User_Id`, `Table_name`, `Guest`, `Event_date`, `Event_time`, `Request`) VALUES
-(1, 'After Dark', 4, '2020-04-08', '17:41:00', 'no');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `event_book`
---
-
-CREATE TABLE `event_book` (
-  `User_Id` int(11) NOT NULL,
-  `Hall_name` varchar(30) NOT NULL,
-  `Event_name` text NOT NULL,
-  `Guest` tinyint(4) NOT NULL,
-  `Event_date` text NOT NULL,
-  `Start_time` time NOT NULL,
-  `End_time` time NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `event_book`
---
-
-INSERT INTO `event_book` (`User_Id`, `Hall_name`, `Event_name`, `Guest`, `Event_date`, `Start_time`, `End_time`) VALUES
-(1, 'Symphony Banquets, Events & Co', 'Cocktail Party', 127, '12/2/22222', '17:35:00', '19:35:00'),
-(1, 'Symphony Banquets, Events & Co', 'Cocktail Party', 127, '12/2/22222', '17:35:00', '19:35:00');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `register`
---
-
+select * from dine_book;
+delete from dine_book where Event_date<=CURDATE();
+drop table dine_book;
+CREATE TABLE event_book (
+  eventid int primary key,
+  User_Id int(11) NOT NULL,
+  Hall_name varchar(30) NOT NULL,
+  Event_name text NOT NULL,
+  Guest tinyint(4) NOT NULL,
+  Event_date date NOT NULL,
+  Start_time time NOT NULL,
+  End_time time NOT NULL
+);
+select * from event_book;
+drop table event_book;
 CREATE TABLE `register` (
-  `User_Id` int(11) NOT NULL,
+  `User_Id` int(11) NOT NULL primary key,
   `Name` varchar(50) NOT NULL,
   `Gender` varchar(6) NOT NULL,
   `Mob_no` bigint(12) NOT NULL,
-  `Email` varchar(20) NOT NULL,
+  `Email` varchar(50) NOT NULL,
   `Password` varchar(12) NOT NULL,
   `Age` int(11) NOT NULL,
   `Country` varchar(5) NOT NULL,
@@ -87,61 +38,34 @@ CREATE TABLE `register` (
   `City` varchar(20) NOT NULL,
   `Locality` varchar(20) NOT NULL,
   `Birth_date` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `register`
---
-
-INSERT INTO `register` (`User_Id`, `Name`, `Gender`, `Mob_no`, `Email`, `Password`, `Age`, `Country`, `State`, `City`, `Locality`, `Birth_date`) VALUES
-(1, 'Riddhi Pawar', 'Female', 9689338693, 'abc@gmail.com', 'neel123456', 19, 'India', 'maharashtra', 'nashik', 'indira nagar', '24-10-2018');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `room_book`
---
-
+);
+select * from register;
+drop table register;
 CREATE TABLE `room_book` (
+	`roomid` int primary key,
   `User_Id` int(11) NOT NULL,
   `Room_name` varchar(30) NOT NULL,
-  `Arrival` text NOT NULL,
-  `Departure` text NOT NULL,
+  `Arrival` date NOT NULL,
+  `Departure` date NOT NULL,	
   `Rooms` tinyint(4) NOT NULL,
   `Adults` tinyint(4) NOT NULL,
   `Children` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+);
+select * from event_book;
+select * from dine_book;
+select * from room_book;
+drop table room_book;
+insert into register values(2,"abc",'M',1111111111,"abc@gmail.com","12345678",20,"india","bohar","gya","gayanagar","01/01/2001");
+select * from staff;
+create table rooms(roomid int primary key,roomnumber int,User_Id int(11),foreign key (User_Id) references register(User_Id) on delete set null);
+create table services(serviceid int primary key,id int,service varchar(200),roomid int,User_Id int(11),Password varchar(12),foreign key (id) references staff(id) on delete set null,foreign key (User_Id) references register(User_Id) on delete set null,foreign key (roomid) references room_book(roomid) on delete set null);
+drop table services;
+select * from services;
+select * from register;
+-- drop table room_book;
+select * from room_book;
 
---
--- Dumping data for table `room_book`
---
 
-INSERT INTO `room_book` (`User_Id`, `Room_name`, `Arrival`, `Departure`, `Rooms`, `Adults`, `Children`) VALUES
-(1, 'Signature Suite', '0000-00-00', '0000-00-00', 2, 4, 4),
-(1, 'Signature Suite', '90/0987654', '09/90/8907', 2, 4, 4);
 
---
--- Indexes for dumped tables
---
+	
 
---
--- Indexes for table `register`
---
-ALTER TABLE `register`
-  ADD PRIMARY KEY (`User_Id`),
-  ADD UNIQUE KEY `Email` (`Email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `register`
---
-ALTER TABLE `register`
-  MODIFY `User_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
