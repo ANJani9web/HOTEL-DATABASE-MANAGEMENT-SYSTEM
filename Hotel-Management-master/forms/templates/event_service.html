@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Room Booking Status</title>
+<title>Event Booking Status</title>
 	<!-- Meta-Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -49,8 +49,8 @@
         <form onsubmit="return validate()" name="dine_book"action="{{ url_for("eventcheck")}}" method="post" ><br/>
 
             <div style="text-align: center;">
-             <p style="font-size: 3.5rem; "> <b> Assign A Room</b> </p>
-             <div style="color: rgb(215, 20, 169); text-align: left; padding-left:37.5%;"><b>Enter Table Id:</b><br/>
+             <p style="font-size: 3.5rem; "> <b> check table id</b> </p>
+             <div style="color: rgb(215, 20, 169); text-align: left; padding-left:37.5%;"><b>Enter Event Id:</b><br/>
                  <!-- <br/> -->
              
              <input type="number" name="tableid" placeholder="123" autocomplete="off" /></div><br/><br/>
