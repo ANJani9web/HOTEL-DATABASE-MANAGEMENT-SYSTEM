@@ -55,7 +55,7 @@ def dine():
          cursor.execute("insert into dine_book(dineid,User_Id,Table_name,Guest,Event_date,Event_time,Request) values(%s,%s,%s,%s,%s,%s,%s);",(c,user_id,table_name,guest,dine_date,dine_time,request1))
          db.commit()
          # db.close()
-         return "you are booked"
+         return "you are booked and tableid is"+str(c)
 
        else:
          return render_template("a.html")
