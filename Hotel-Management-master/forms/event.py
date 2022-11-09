@@ -42,14 +42,14 @@ def event():
 
         max1=1
 
-        for i in range(1,len(myresult)):
+        for i in range(0,len(myresult)):
           max1=max(max1,myresult[i][0])
         c=max1+1
         if flag==1:
             cursor.execute("INSERT INTO event_book(eventid,User_Id,Hall_name,Event_name,Guest,Event_date,Start_time,End_time) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",(c,user_id,hall_name,event_name,guest,event_date,start_time,end_time))
             
             db.commit()
-            return "you are booked"
+            return "you are booked your eventid is "+str(c) 
             
 
 
