@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Event Booking Form</title>
+<title>Room Booking Form</title>
 	<!-- Meta-Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
@@ -22,40 +22,46 @@
 	<!-- Online-fonts -->
 	<link href="//fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&amp;subset=latin-ext,vietnamese" rel="stylesheet">
 </head>
-
-<body>
+<!-- style="background-image: url(images/roomm.jpg);" -->
+<body >
 	<div class="main">
 		<div class="main-w3l">
-			<h1 class="logo-w3">Book A Table</h1>
+			<h1 class="logo-w3">Room Service</h1>
 			<div class="w3layouts-main">
 				
-					<form onsubmit="return validate()" name="services_book"action="{{ url_for("service")}}" method="post"><br/>
-						<div style="color: white; text-align: left;"><b>Select Table:</b><br/><br/>
-						<select class="w3layouts-main" name="Table_name">
-							<option value="Cafe Coacoa" selected="">Cafe Coacoa</option>
-							<option value="Masala Craft">Masala Craft</option>
-							<option value="After Dark">After Dark</option>
+					<form onsubmit="return validate()" name="room_book" action="{{ url_for("service")}}" method="post"><br/>
+						<div style="color: white; text-align: left;"><b>Select Service:</b><br/><br/>
+						<select class="w3layouts-main" name="Service">
+							<option value="Massage" selected="">Massage</option>
+							<option value="Spa">Spa</option>
+							<option value="Food and drinks">Food and drinks</option>
+							<option value="Complaint">Complaint</option>
+							<!-- <option value="Signature Suite">Signature Suite</option> -->
 						</select ></div><br/><br/>
 
-						<div style="color: white; text-align: left;"><b>Enter Your User Id:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://127.0.0.1:8000"><italic>Dont Have UserId?</italic></a> <br/><br/>
-						<input type="text" name="User_id" placeholder="User Id" autocomplete="off" /></div><br/><br/>
+						<div style="color: white; text-align: left;"><b>Enter Your Roomid:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://127.0.0.1:8000"></a> <br/><br/>
+						<input type="text" name="roomid" placeholder="Room Id" autocomplete="off" /></div><br/><br/>
 
-						<div style="color: white; text-align: left;"><b>Enter Your Password:</b><br/><br/>
-						<input type="password"  name="Password" class="padding" placeholder="Password" autocomplete="off"/></div><br/><br/>
+						<div style="color: white; text-align: left;"><b>Any details of the serivce needed:</b><br/><br/>
+						<input type="text"  name="serviceneeded" class="padding" placeholder="Any details of the serivce needed"/></div><br/><br/>
+							
+						<div style="color: white; text-align: left;"><b>Enter roomnumber</b><br/><br/>
+						<input type="text"  name="roomnumber" class="padding" placeholder="Roomnumber"/></div><br/><br/>
+	
+						<!-- <div style="color: white; text-align: left;"><b>Arrival Date:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[DD/MM/YYYY]<br/><br/>
+						<input type="date" name="Arrival" autocomplete="off"/></div><br/><br/> -->
 
-						<div style="color: white; text-align: left;"><b>Enter Roomid:</b><br/><br/>
-						<input type="text" name="Room_id" placeholder="roomid" autocomplete="off"/></div><br/><br/>
-                        <div style="color: white; text-align: left;"><b>Enter Roomid:</b><br/><br/>
-                            <input type="text" name="Rnum" placeholder="roomnumber" autocomplete="off"/></div><br/><br/>
+						<!-- <div style="color: white; text-align: left;"><b>Departure Date:</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[DD/MM/YYYY]<br/><br/>
+						<input type="date" name="Departure" autocomplete="off"/></div><br/><br/> -->
 
-						<!-- <div style="color: white; text-align: left;"><b>Enter Event Date:</b><br/><br/>
-						<input class="w3layouts-main" type="date" name="Date"/></div><br/><br/> -->
-<!-- 
-						<div style="color: white; text-align: left;"><b>Time:</b><br/><br/>
-						<input class="w3layouts-main" type="time" name="Time"/></div><br/><br/> -->
+						<!-- <div style="color: white; text-align: left;"><b>Number of Rooms:</b><br/><br/>
+						<input type="text" name="Rooms" placeholder="Rooms" autocomplete="off"/></div><br/><br/> -->
 
-						<div style="color: white; text-align: left;"><b>Special Request:</b><br/><br/>
-						<input type="text" name="Request" placeholder="The Service You want"/></div><br/><br/>
+						<!-- <div style="color: white; text-align: left;"><b>Number of Adults:</b><br/><br/>
+						<input type="text" name="Adults" placeholder="Adults" autocomplete="off"/></div><br/><br/> -->
+
+						<!-- <div style="color: white; text-align: left;"><b>Number of Children:</b><br/><br/>
+						<input type="text" name="Children" placeholder="Children" autocomplete="off"/></div><br/><br/> -->
 
 		<!-- use autocomplete="off" at each textbox-->
 						<input type="submit" value="Submit" name="Submit">
@@ -65,83 +71,162 @@
 	</div>	
 
 	<script type="text/javascript">
-
-			function validate() 
-				{
-		            // id validations
-					if(document.dine_book.User_id.value.trim()=="")
+		function validate()
+		{
+					// id validations
+					if(document.room_book.User_id.value.trim()=="")
 					{
 						alert("Please provide your User Id");
-						document.dine_book.User_id.focus();
+						document.room_book.User_id.focus();
 						return false;
 					}
-					else if(isNaN(document.dine_book.User_id.value.trim())==true)
+					else if(isNaN(document.room_book.User_id.value.trim())==true)
 					{
-						alert("User Id can't contain characters");
-						document.dine_book.User_id.focus();
+						alert("User Id must be Numerical");
+						document.room_book.User_id.focus();
 						return false;
 					}
-					else if((document.dine_book.User_id.value.trim()).length>3)
+					else if((document.room_book.User_id.value.trim()).length>3)
 					{
-						alert("Plz enter valid User Id ");
-						document.dine_book.User_id.focus();
+						alert("Please provide valid User Id");
+						document.room_book.User_id.focus();
 						return false;
 					}
 
-					
+
 					//password validations
-					else if((document.dine_book.Password.value.trim())=="")
+					else if((document.room_book.Password.value.trim())=="")
 					{
 						alert("Password Is required");
-						document.dine_book.Password.focus();
+						document.room_book.Password.focus();
 						return false;
 					}
-					else if((document.dine_book.Password.value.trim()).length<8)
+					else if((document.room_book.Password.value.trim()).length<8)
 					{
 						alert("Password Must contain atleast 8 values");
-						document.dine_book.Password.focus();
+						document.room_book.Password.focus();
 						return false;
 					}
-					else if((document.dine_book.Password.value.trim()).length>15)
+					else if((document.room_book.Password.value.trim()).length>15)
 					{
 						alert("Password Must not be too long");
-						document.dine_book.Password.focus();
+						document.room_book.Password.focus();
 						return false;
 					}
 
 
-					//guest validations
-					else if((document.dine_book.Guest.value.trim())=="")
+					//arrival validations
+					else if((document.room_book.Arrival.value.trim())=="")
 					{
-						alert("Plz provide Number of Guest");
-						document.dine_book.Guest.focus();
+						alert("Arrival date Is required");
+						document.room_book.Arrival.focus();
 						return false;
 					}
-					else if(isNaN(document.dine_book.Guest.value.trim())==true)
+					else if((document.room_book.Arrival.value.trim()).length<10 || (document.room_book.Arrival.value.trim()).length>10)
 					{
-						alert("Number of Guest must be numerical value");
-						document.dine_book.Guest.focus();
+						alert("Please provide valid Arrival Date");
+						document.room_book.Arrival.focus();
 						return false;
 					}
-					else if((document.dine_book.Guest.value.trim())==0)
+
+
+					//departure validations
+					else if((document.room_book.Departure.value.trim())=="")
+					{
+						alert("Departure date Is required");
+						document.room_book.Departure.focus();
+						return false;
+					}
+					else if((document.room_book.Departure.value.trim()).length<10 || (document.room_book.Departure.value.trim()).length>10)
+					{
+						alert("Please provide valid Departure Date");
+						document.room_book.Departure.focus();
+						return false;
+					}
+
+
+					//rooms validation
+					else if((document.room_book.Rooms.value.trim())=="")
+					{
+						alert("Plz provide Number of Rooms to book");
+						document.room_book.Rooms.focus();
+						return false;
+					}
+					else if(isNaN(document.room_book.Rooms.value.trim())==true)
+					{
+						alert("Number of rooms must be numerical value");
+						document.room_book.Rooms.focus();
+						return false;
+					}
+					else if((document.room_book.Rooms.value.trim())<1)
+					{
+						alert("Number of room to be book must be atleast 1");
+						document.room_book.Rooms.focus();
+						return false;
+					}
+					else if((document.room_book.Rooms.value.trim())>4)
+					{
+						alert("One can book maximum 4 rooms only");
+						document.room_book.Rooms.focus();
+						return false;
+					}
+
+
+					//adults validations
+					else if((document.room_book.Adults.value.trim())=="")
+					{
+						alert("Plz provide Number of Adults");
+						document.room_book.Adults.focus();
+						return false;
+					}
+					else if(isNaN(document.room_book.Adults.value.trim())==true)
+					{
+						alert("Number of Adults must be numerical value");
+						document.room_book.Adults.focus();
+						return false;
+					}
+					else if((document.room_book.Adults.value.trim())<1)
 					{
 						alert("Please provide valid input");
-						document.event_book.Guest.focus();
+						document.room_book.Adults.focus();
 						return false;
 					}
-					else if((document.dine_book.Guest.value.trim())>100)
+					else if((document.room_book.Adults.value.trim())>10)
 					{
-						alert("maximum limit is 100 for Guest");
-						document.dine_book.Guest.focus();
+						alert("maximum limit is 10 for Adults");
+						document.room_book.Adults.focus();
 						return false;
 					}
 
 
-
-					
-				}
-
+					//children validations
+					else if((document.room_book.Children.value.trim())=="")
+					{
+						alert("Plz provide Number of Childrens");
+						document.room_book.Children.focus();
+						return false;
+					}
+					else if(isNaN(document.room_book.Children.value.trim())==true)
+					{
+						alert("Number of Children must be numerical value");
+						document.room_book.Children.focus();
+						return false;
+					}
+					else if((document.room_book.Children.value.trim())<1)
+					{
+						alert("Please provide valid input");
+						document.room_book.Children.focus();
+						return false;
+					}
+					else if((document.room_book.Children.value.trim())>5)
+					{
+						alert("maximum limit is 5 for Children");
+						document.room_book.Children.focus();
+						return false;
+					}
+		}
 	</script>
 
+	
 </body>
 </html>

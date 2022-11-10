@@ -21,39 +21,33 @@ def service():
     if request.method == "POST":
 
 
-       user_id=request.form.get('User_id')
+       service=request.form.get('Service')
+       roomid=request.form.get('roomid')
+       serviceneeded=request.form.get('serviceneeded')
+       roomnumber=request.form.get('roomnumber')
        
-       password=request.form.get('Password')
-       roomid=request.form.get('Room_id')
-       request1=request.form.get('Request')
-       rnum=request.form.get('Rnum')
-       flag=0
-       flag2=0
-       cursor.execute("delete from dine_book where Event_date<CURDATE();")
-       db.commit()
+       
+     #   flag=0
+     #   flag2=0
+     #   cursor.execute("delete from dine_book where Event_date<CURDATE();")
+     #   db.commit()
 
-       cursor.execute("select * from register where User_id=%s and Password=%s;",(str(user_id),str(password)))
+       cursor.execute("select * from rooms where roomid=%s and roomnumber=%s;",(str(roomid),str(roomnumber)))
        myresult = cursor.fetchall()
        if len(myresult)==1:
             flag=1
-       cursor.execute("select * from room_book where roomid={};".format(str(roomid)))
-
-       myresult = cursor.fetchall()
-       l=len(myresult)
-       if l==1:
-        
-        flag2=1
+     
        max1=1
        for i in range(0,len(myresult)):
           max1=max(max1,myresult[i][0])
        c=max1+1
-       if flag==1 and flag2==1:
-            cursor.execute("INSERT INTO services(serviceid,id,service,roomid,User_Id,Password) values(%s,%s,%s,%s,%s,%s);",(c,2,request1,roomid,user_id,password))
+       if flag==1:
+            cursor.execute("INSERT INTO services(serviceid,id,service,servicedetail,roomid) values(%s,%s,%s,%s,%s);",(c,2,service,serviceneeded,roomid))
             db.commit()
         # db.close()
-            return "room booked and your serviceid is "+str(c)
+            return "service booked and your serviceid is "+str(c)
        else:
-            return render_template("your room id is not valid or your userid and password is not valid")
+            return render_template("your room id is not valid or your roomnumber is not valid")
 
 
        
