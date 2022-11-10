@@ -22,6 +22,7 @@ def staffinsert():
         name=request.form.get('name')
         designation=request.form.get('designation')
         salary=request.form.get('salary')
+        department=request.form.get('department')
         number=request.form.get('number')
         cursor.execute("select * from staff")
         myresult = cursor.fetchall()
@@ -30,7 +31,12 @@ def staffinsert():
             if x[0]>max1:
                 max1=x[0]
         max1=max1+1
-        cursor.execute("insert into staff(id,name,designation,salary,mobilenumber) values(%s,%s,%s,%s,%s)",(max1,name,designation,salary,number))
+        cursor.execute("insert into staff(department,id,name,designation,salary,mobilenumber) values(%s,%s,%s,%s,%s,%s)",(department,max1,name,designation,salary,number))
+        db.commit()
+        cursor.execute("select * from department where deptname=%s",(str(department),))
+        myresult = cursor.fetchall()
+        t=myresult[0][1]
+        cursor.execute("update department set countofemployee=%s where deptname=%s;",((t+1),str(department)))
         db.commit()
         return "Staff Inserted"
 
