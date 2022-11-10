@@ -21,6 +21,7 @@ def staffdelete():
     if request.method == "POST":
         id=request.form.get('id')
         name=request.form.get('staffname')
+        department=request.form.get('department')
         x=1
 
         
@@ -36,9 +37,18 @@ def staffdelete():
         
         if flag==1:
             # cursor.execute("select * from room_book where roomid=(%s);",(room_id))
+            
+            cursor.execute("select * from department where deptname=%s",(str(department),))
+            myresult = cursor.fetchall()
+            t=myresult[0][1]
+            cursor.execute("update department set countofemployee=%s where deptname=%s;",((t-1),str(department)))
+            db.commit()
             cursor.execute("delete from staff where id=%s and name=%s;",(id,name))
+           
+            
             
             db.commit()
+            
         # db.close()
             return "Staff Deleted"
         else:
