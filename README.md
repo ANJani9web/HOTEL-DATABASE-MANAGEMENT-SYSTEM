@@ -1,4 +1,4 @@
-# dbis_project
+# Hotel Database Management System
 To computerize the actions of employees, make hotel booking easier(using third party sites costs the hotel),record data about the functioning of the hotel,which can be analysed to improve operational efficiency of the hotel in the future.
 We have done our best to use structured and modular architecture, and other techniques to simplify the complex process of designing and developing a web-based hotel management system. This project is used by two kinds of user :
 i) Online user
